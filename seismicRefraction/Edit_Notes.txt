@@ -3,3 +3,10 @@
     There is no github repo atm but I have a local git repository and will start editing this file
     I am going to start by making it a Class
     I don't think it will be possible for this to have seperation between Controll and View
+
+    I is now a Class
+    I also moved that wierd loop thing that was under run() into ReadFile, along with the ability
+        to select multiple files at once.
+
+    There are a lot of varibles that are just not used, I will delete them later when I'm sure that 
+        the data from my edits are correct

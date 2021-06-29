@@ -171,9 +171,7 @@ class ReadnSort:
         df.to_csv(csvFile,index=False,header=False,line_terminator='\n')
         csvFile.close()
 
-    def run(self):
-        self.ReadFile()
-
+    def sort_data(self):
         print('now lets sort these files')
 
         all1Sorted = self.all1 [ :, self.all1[1].argsort()]
@@ -184,6 +182,9 @@ class ReadnSort:
         self.outputData3=np.c_[self.timeColumn,all3Sorted]
         print(self.outputData1[0:10,:])
 
+    def run(self):
+        self.ReadFile()
+        self.sort_data()
         self.WriteFile()
 
 if __name__=='__main__':
