@@ -11,13 +11,16 @@ Created on Wed Oct  7 22:32:40 2020
 import numpy as np
 import pandas as pd
 from tkinter import Tk     # from tkinter import Tk for Python 3.x
-from tkinter.filedialog import askopenfilename
+from tkinter.filedialog import askopenfilenames
 from tkinter.filedialog import asksaveasfilename
 
 global valuefloat
 
 class ReadnSort:
     def __init__(self):
+
+        Tk().withdraw() # we don't want a full GUI, so keep the root window from appearing
+
         P=[]
         PR=[]
         PL=[]
@@ -75,10 +78,10 @@ class ReadnSort:
 
     def ReadFile(self):
 
-        Tk().withdraw() # we don't want a full GUI, so keep the root window from appearing
+        
     #    window=tk.Tk()
 
-        seismicfilename = askopenfilename(filetypes=[("csv files", "*.csv;*.CSV")]) # show an "Open" dialog box and return the path to the selected file
+        seismicfilename = askopenfilenames(filetypes=[("csv files", "*.csv;*.CSV")]) # show an "Open" dialog box and return the path to the selected file
     #    window.lift()
         if seismicfilename=='': 
             print('this is the end')
@@ -86,7 +89,7 @@ class ReadnSort:
         print(seismicfilename) 
         print("i am reading a file now")
         
-        csvFile = open(seismicfilename,"r") 
+        csvFile = open(seismicfilename[0],"r") 
         print(" i opened the file")
         
         locations=csvFile.readline()
@@ -127,7 +130,7 @@ class ReadnSort:
     
     def WriteFile(self):
 
-        Tk().withdraw() # we don't want a full GUI, so keep the root window from appearing
+        # Tk().withdraw() # we don't want a full GUI, so keep the root window from appearing
         seismicfilename = asksaveasfilename() # show an "Open" dialog box and return the path to the selected file
         print(seismicfilename)          
         print("i am writing a file now")
@@ -167,18 +170,17 @@ class ReadnSort:
 
         while loop=="keepgoing":
             loop=self.ReadFile()
-            if loop=="keepgoing":
-                distance1=self.geophone1Loc-self.sledge
-                distance2=self.geophone2Loc-self.sledge
-                distance3=self.geophone3Loc-self.sledge
-                
-                con1=np.concatenate((self.geophone1Loc,self.sledge,distance1,self.PCH1),axis=None)
-                con2=np.concatenate((self.geophone2Loc,self.sledge,distance2,self.PCH2),axis=None)
-                con3=np.concatenate((self.geophone3Loc,self.sledge,distance3,self.PCH3),axis=None)
-                all1=np.c_[all1,con1]
-                all2=np.c_[all2,con2]
-                all3=np.c_[all3,con3]
-                print ('all1=   ',all1[0:10,:])
+            distance1=self.geophone1Loc-self.sledge
+            distance2=self.geophone2Loc-self.sledge
+            distance3=self.geophone3Loc-self.sledge
+            
+            con1=np.concatenate((self.geophone1Loc,self.sledge,distance1,self.PCH1),axis=None)
+            con2=np.concatenate((self.geophone2Loc,self.sledge,distance2,self.PCH2),axis=None)
+            con3=np.concatenate((self.geophone3Loc,self.sledge,distance3,self.PCH3),axis=None)
+            all1=np.c_[all1,con1]
+            all2=np.c_[all2,con2]
+            all3=np.c_[all3,con3]
+            print ('all1=   ',all1[0:10,:])
 
         print('now lets sort these files')
 
