@@ -1,0 +1,5 @@
+6/29/21:
+    SeismicReadnSort3.py (shortend to SRS) takes in the test#.cvs not the sortjunk1.cvs 
+    There is no github repo atm but I have a local git repository and will start editing this file
+    I am going to start by making it a Class
+    I don't think it will be possible for this to have seperation between Controll and View
