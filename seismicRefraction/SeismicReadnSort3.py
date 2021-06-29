@@ -126,7 +126,6 @@ class ReadnSort:
                 print("I finished reading the file")
 
             # Maybe should put VVV into a seperate function to keep functions small
-            self.timeColumn=np.concatenate((0,0,0,self.t),axis=None)
 
             distance1=self.geophone1Loc-self.sledge
             distance2=self.geophone2Loc-self.sledge
@@ -136,6 +135,7 @@ class ReadnSort:
             con2=np.concatenate((self.geophone2Loc,self.sledge,distance2,self.PCH2),axis=None)
             con3=np.concatenate((self.geophone3Loc,self.sledge,distance3,self.PCH3),axis=None)
             if(self.all1 == []):
+                self.timeColumn=np.concatenate((0,0,0,self.t),axis=None)
                 self.all1 = con1
                 self.all2 = con2
                 self.all3 = con3
