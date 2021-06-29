@@ -21,9 +21,6 @@ class ReadnSort:
 
         self.DEBUG = debug
 
-        P=[]
-        PR=[]
-        PL=[]
         self.time=[]
         self.deltaTrig = 0.
 
@@ -47,34 +44,14 @@ class ReadnSort:
         self.PCH2Scaled=[]
         self.PCH3Scaled=[]
 
-        Pstack0=[]
-        Pstack1=[]
-        Pstack2=[]
-        Pstack3=[]
-
         self.PCH0butter = []
         self.PCH1butter = []
         self.PCH2butter = []
         self.PCH3butter = []
 
         self.all1=[]
-        all2=[]
-        all3=[]
-
-        isStackClicked=False
-        keepOldValue=0
-        numStack=0
-        textvar=0
-        textvar1=0
-        myXmax=150.
-        Ymax=0.0
-        Ymin=0.0
-
-        iterate=0
-        cid=0
-
-        iclicked=0
-        ilabel=0
+        self.all2=[]
+        self.all3=[]
 
     def ReadFile(self):
 
@@ -111,9 +88,6 @@ class ReadnSort:
             self.PCH1=df["cSmoothCH1"].values
             self.PCH2=df["dSmoothCH2"].values
             self.PCH3=df["eSmoothCH3"].values
-            Pstack1=df["fStackCH1"].values
-            Pstack2=df["gStackCH2"].values
-            Pstack3=df["hStackCH3"].values
             self.PCH1butter=df["iRawCH1"].values
             self.PCH2butter=df["jRawCH2"].values
             self.PCH3butter=df["kRawCH3"].values
