@@ -24,7 +24,7 @@ class ReadnSort:
         P=[]
         PR=[]
         PL=[]
-        self.t=[]
+        self.time=[]
         self.deltaTrig = 0.
 
         self.PCH0=[]
@@ -106,7 +106,7 @@ class ReadnSort:
             csvFile.seek(0)  # rewind file to the top again
             df=pd.read_csv(csvFile,header=1)
 
-            self.t=df["aTime"].values
+            self.time=df["aTime"].values
             self.PCH0butter=df["bTrigger"].values
             self.PCH1=df["cSmoothCH1"].values
             self.PCH2=df["dSmoothCH2"].values
@@ -118,11 +118,11 @@ class ReadnSort:
             self.PCH2butter=df["jRawCH2"].values
             self.PCH3butter=df["kRawCH3"].values
 
-            self.deltaTrig=(self.t[-1]-self.t[0])/len(self.PCH1)
+            self.deltaTrig=(self.time[-1]-self.time[0])/len(self.PCH1)
             
             csvFile.close()
             if self.DEBUG:
-                print("t=", self.t[0])
+                print("t=", self.time[0])
                 print("I finished reading the file")
 
             # Maybe should put VVV into a seperate function to keep functions small
@@ -135,7 +135,7 @@ class ReadnSort:
             con2=np.concatenate((self.geophone2Loc,self.sledge,distance2,self.PCH2),axis=None)
             con3=np.concatenate((self.geophone3Loc,self.sledge,distance3,self.PCH3),axis=None)
             if(self.all1 == []):
-                self.timeColumn=np.concatenate((0,0,0,self.t),axis=None)
+                self.timeColumn=np.concatenate((0,0,0,self.time),axis=None)
                 self.all1 = con1
                 self.all2 = con2
                 self.all3 = con3
