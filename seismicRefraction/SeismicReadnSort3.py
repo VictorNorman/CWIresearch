@@ -54,12 +54,7 @@ class ReadnSort:
         self.all3=[]
 
     def ReadFile(self):
-
-        
-    #    window=tk.Tk()
-
         seismicfilenames = askopenfilenames(filetypes=[("csv files", "*.csv;*.CSV")]) # show an "Open" dialog box and return the path to the selected file
-    #    window.lift()
         for file in seismicfilenames:
             if self.DEBUG:
                 print(file) 

@@ -101,7 +101,7 @@ def plotit(my_data,lowcut,highcut):
 #        print(rmax)
 #        my_data_scaled=my_data[:,trace]/rmax                 
         i=scale_filter(my_data,trace,lowcut,highcut) 
-        plt.plot(t*1000,i+shift, 'r', lw=0.6, color='black', label=str(shift)) 
+        plt.plot(t*1000,i+shift, lw=0.6, color='black', label=str(shift)) 
         plt.annotate(geophoneLocations[shift-1],xy=(t[0]*1000,shift),ha="right")
         plt.fill_between(t*1000,i+shift,shift,where=i>0.0,facecolor=str(0.9),interpolate=True)   
         shift=shift+1
