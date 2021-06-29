@@ -14,17 +14,17 @@ from tkinter import Tk     # from tkinter import Tk for Python 3.x
 from tkinter.filedialog import askopenfilenames
 from tkinter.filedialog import asksaveasfilename
 
-global valuefloat
-
 class ReadnSort:
-    def __init__(self):
+    def __init__(self, debug=False):
 
         Tk().withdraw() # we don't want a full GUI, so keep the root window from appearing
+
+        self.DEBUG = debug
 
         P=[]
         PR=[]
         PL=[]
-        self.t=[]
+        self.time=[]
         self.deltaTrig = 0.
 
         self.PCH0=[]
@@ -81,66 +81,84 @@ class ReadnSort:
         
     #    window=tk.Tk()
 
-        seismicfilename = askopenfilenames(filetypes=[("csv files", "*.csv;*.CSV")]) # show an "Open" dialog box and return the path to the selected file
+        seismicfilenames = askopenfilenames(filetypes=[("csv files", "*.csv;*.CSV")]) # show an "Open" dialog box and return the path to the selected file
     #    window.lift()
-        if seismicfilename=='': 
-            print('this is the end')
-            return 'stop'
-        print(seismicfilename) 
-        print("i am reading a file now")
-        
-        csvFile = open(seismicfilename[0],"r") 
-        print(" i opened the file")
-        
-        locations=csvFile.readline()
+        for file in seismicfilenames:
+            if self.DEBUG:
+                print(file) 
+                print("i am reading a file now")
+            
+            csvFile = open(file,"r") 
+            if self.DEBUG:
+                print(" i opened the file")
+            
+            locations=csvFile.readline()
 
-        geophoneLocationsString=locations.split(',')
-        print(geophoneLocationsString[0])
-        self.sledge=float(geophoneLocationsString[0])
-        self.geophone1Loc=float(geophoneLocationsString[1])
-        self.geophone2Loc=float(geophoneLocationsString[2])
-        self.geophone3Loc=float(geophoneLocationsString[3])
-        print(geophoneLocationsString)
-        print(self.sledge, self.geophone1Loc,self.geophone2Loc,self.geophone3Loc)
-        csvFile.seek(0)  # rewind file to the top again
-        df=pd.read_csv(csvFile,header=1)
+            geophoneLocationsString=locations.split(',')
+            self.sledge=float(geophoneLocationsString[0])
+            self.geophone1Loc=float(geophoneLocationsString[1])
+            self.geophone2Loc=float(geophoneLocationsString[2])
+            self.geophone3Loc=float(geophoneLocationsString[3])
+            if self.DEBUG:
+                print(geophoneLocationsString[0])
+                print(geophoneLocationsString)
+                print(self.sledge, self.geophone1Loc,self.geophone2Loc,self.geophone3Loc)
+            csvFile.seek(0)  # rewind file to the top again
+            df=pd.read_csv(csvFile,header=1)
 
-        print(type(df))
-        
-        self.t=df["aTime"].values
-        self.PCH0butter=df["bTrigger"].values
-        self.PCH1=df["cSmoothCH1"].values
-        self.PCH2=df["dSmoothCH2"].values
-        self.PCH3=df["eSmoothCH3"].values
-        Pstack1=df["fStackCH1"].values
-        Pstack2=df["gStackCH2"].values
-        Pstack3=df["hStackCH3"].values
-        self.PCH1butter=df["iRawCH1"].values
-        self.PCH2butter=df["jRawCH2"].values
-        self.PCH3butter=df["kRawCH3"].values
+            self.time=df["aTime"].values
+            self.PCH0butter=df["bTrigger"].values
+            self.PCH1=df["cSmoothCH1"].values
+            self.PCH2=df["dSmoothCH2"].values
+            self.PCH3=df["eSmoothCH3"].values
+            Pstack1=df["fStackCH1"].values
+            Pstack2=df["gStackCH2"].values
+            Pstack3=df["hStackCH3"].values
+            self.PCH1butter=df["iRawCH1"].values
+            self.PCH2butter=df["jRawCH2"].values
+            self.PCH3butter=df["kRawCH3"].values
 
-        self.deltaTrig=(self.t[-1]-self.t[0])/len(self.PCH1)
+            self.deltaTrig=(self.time[-1]-self.time[0])/len(self.PCH1)
+            
+            csvFile.close()
+            if self.DEBUG:
+                print("t=", self.time[0])
+                print("I finished reading the file")
 
-        print("t=", self.t[0])
-        csvFile.close()
-        print("I finished reading the file")
+            # Maybe should put VVV into a seperate function to keep functions small
 
-        return 'keepgoing'
+            distance1=self.geophone1Loc-self.sledge
+            distance2=self.geophone2Loc-self.sledge
+            distance3=self.geophone3Loc-self.sledge
+
+            con1=np.concatenate((self.geophone1Loc,self.sledge,distance1,self.PCH1),axis=None)
+            con2=np.concatenate((self.geophone2Loc,self.sledge,distance2,self.PCH2),axis=None)
+            con3=np.concatenate((self.geophone3Loc,self.sledge,distance3,self.PCH3),axis=None)
+            if(self.all1 == []):
+                self.timeColumn=np.concatenate((0,0,0,self.time),axis=None)
+                self.all1 = con1
+                self.all2 = con2
+                self.all3 = con3
+            else:
+                self.all1=np.c_[self.all1,con1]
+                self.all2=np.c_[self.all2,con2]
+                self.all3=np.c_[self.all3,con3]
+
         
     
     def WriteFile(self):
-
-        # Tk().withdraw() # we don't want a full GUI, so keep the root window from appearing
         seismicfilename = asksaveasfilename() # show an "Open" dialog box and return the path to the selected file
-        print(seismicfilename)          
-        print("i am writing a file now")
+        if self.DEBUG:
+            print(seismicfilename)          
+            print("i am writing a file now")
         
         if seismicfilename[-4]=='.':
             seismicfilename=seismicfilename[:-4]
-            
-        print(seismicfilename) 
-
-        print('out stuff', self.outputData1[0:5,:])
+        
+        if self.DEBUG:    
+            print(seismicfilename) 
+            print('out stuff', self.outputData1[0:5,:])
+        
         csvFile = open(seismicfilename + '1.csv', "w") 
         df = pd.DataFrame(self.outputData1)
         df.to_csv(csvFile,index=False,header=False,line_terminator='\n')
@@ -156,42 +174,20 @@ class ReadnSort:
         df.to_csv(csvFile,index=False,header=False,line_terminator='\n')
         csvFile.close()
 
+    def sort_data(self):
+        all1Sorted = self.all1 [ :, self.all1[1].argsort()]
+        all2Sorted = self.all2 [ :, self.all2[1].argsort()]
+        all3Sorted = self.all3 [ :, self.all3[1].argsort()]
+        self.outputData1=np.c_[self.timeColumn,all1Sorted]
+        self.outputData2=np.c_[self.timeColumn,all2Sorted]
+        self.outputData3=np.c_[self.timeColumn,all3Sorted]
+        if self.DEBUG:
+            print('now lets sort these files')
+            print(self.outputData1[0:10,:])
+
     def run(self):
-        loop=self.ReadFile()
-        timeColumn=np.concatenate((0,0,0,self.t),axis=None)
-        distance1=self.geophone1Loc-self.sledge
-        distance2=self.geophone2Loc-self.sledge
-        distance3=self.geophone3Loc-self.sledge
-
-        all1=np.concatenate((self.geophone1Loc,self.sledge,distance1,self.PCH1),axis=None)
-        all2=np.concatenate((self.geophone2Loc,self.sledge,distance2,self.PCH2),axis=None)
-        all3=np.concatenate((self.geophone3Loc,self.sledge,distance3,self.PCH3),axis=None)
-        #print ('all1=   ',all1[0:5,:])
-
-        while loop=="keepgoing":
-            loop=self.ReadFile()
-            distance1=self.geophone1Loc-self.sledge
-            distance2=self.geophone2Loc-self.sledge
-            distance3=self.geophone3Loc-self.sledge
-            
-            con1=np.concatenate((self.geophone1Loc,self.sledge,distance1,self.PCH1),axis=None)
-            con2=np.concatenate((self.geophone2Loc,self.sledge,distance2,self.PCH2),axis=None)
-            con3=np.concatenate((self.geophone3Loc,self.sledge,distance3,self.PCH3),axis=None)
-            all1=np.c_[all1,con1]
-            all2=np.c_[all2,con2]
-            all3=np.c_[all3,con3]
-            print ('all1=   ',all1[0:10,:])
-
-        print('now lets sort these files')
-
-        all1Sorted = all1 [ :, all1[1].argsort()]
-        all2Sorted = all2 [ :, all2[1].argsort()]
-        all3Sorted = all3 [ :, all3[1].argsort()]
-        self.outputData1=np.c_[timeColumn,all1Sorted]
-        self.outputData2=np.c_[timeColumn,all2Sorted]
-        self.outputData3=np.c_[timeColumn,all3Sorted]
-        print(self.outputData1[0:10,:])
-
+        self.ReadFile()
+        self.sort_data()
         self.WriteFile()
 
 if __name__=='__main__':
