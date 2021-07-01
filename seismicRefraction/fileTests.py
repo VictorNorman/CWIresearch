@@ -1,14 +1,16 @@
 from tkinter import Tk     # from tkinter import Tk for Python 3.x
-from tkinter.filedialog import askopenfilename
+from tkinter.filedialog import askopenfilenames
 
 Tk().withdraw()
 
-reference_file1 = open("Reference_data1.csv","r")
-reference_file2 = open("Reference_data2.csv","r") 
-reference_file3 = open("Reference_data3.csv","r") 
-test_file1 = open("Test_data1.csv","r")
-test_file2 = open("Test_data2.csv","r")
-test_file3 = open("Test_data3.csv","r")
+rf = askopenfilenames(filetypes=[("csv files", "*.csv;*.CSV")])
+tf = askopenfilenames(filetypes=[("csv files", "*.csv;*.CSV")])
+reference_file1 = open(rf[0],"r")
+reference_file2 = open(rf[1],"r") 
+reference_file3 = open(rf[2],"r") 
+test_file1 = open(tf[0],"r")
+test_file2 = open(tf[1],"r")
+test_file3 = open(tf[2],"r")
 
 reference_data1 = reference_file1.readlines()
 reference_data2 = reference_file2.readlines()

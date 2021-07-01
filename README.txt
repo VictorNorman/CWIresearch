@@ -8,3 +8,4 @@ and here is a link to the Univ fo British Columbia jupyter notebooks for the res
 Myanmar Geoscientists withiout Borders project
 https://github.com/simpeg-research/gwb-dc-inversions/blob/master/README.md
 
+All executables are in the executables folder
