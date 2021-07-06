@@ -85,7 +85,6 @@ shift=0.
 pbutter=[]
 
 def plotit(my_data,lowcut,highcut):
-    print("In plotit")
     #global lines1, fill1
     global line
     shift=1
@@ -99,7 +98,6 @@ def plotit(my_data,lowcut,highcut):
           str(amplitude_multiplier))
     for trace in range(1,cols,1):
 #        rmax=(my_data[:,trace].max())/amplitude_multiplier
-#        print(rmax)
 #        my_data_scaled=my_data[:,trace]/rmax                 
         i=scale_filter(my_data,trace,lowcut,highcut) 
         plt.plot(t*1000,i+shift, lw=0.6, color='black', label=str(shift)) 
@@ -126,7 +124,6 @@ def butter_bandpass_filter(data, lowcut, highcut, fs, order=5):
     return y
 
 def onclick(event):
-   print("In oneclick")
    global textvar
 
    # print( 'button=%d, x=%d, y=%d, time=%f, ydata=%f' \
@@ -177,3 +174,4 @@ text_box = TextBox(axtextbox, 'LowCut, HighCut, Amplitude', \
 text_box.on_submit(submit)
 plt.axes(ax1)
 cid=fig.canvas.mpl_connect('button_press_event', onclick)
+plt.show()
