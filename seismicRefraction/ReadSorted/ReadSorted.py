@@ -21,7 +21,6 @@ class read_sorted:
     def __init__(self):
         Tk().withdraw() # we don't want a full GUI, so keep the root window from appearing
         #    window=tk.Tk()
-        self.open_file()
         self.amplitude_multiplier=2.    #useful if first arrival is needed for refraction
 
         self.lowcut=0.1
@@ -31,23 +30,10 @@ class read_sorted:
         time1stBreak=[]
         strikePlate=[]
         self.start_index=0
-        rows,self.cols=self.my_data.shape
-        print(rows,self.cols)
-        t_original=self.my_data[self.start_index:,0]
-        t_length=len(t_original)
         #print(t_original[0])
 
         #convert time to start at 0 for pretrig instead of -15 and change from ms to s
         #t=(t_original-t_original[0])/1000. 
-        self.t=t_original/1000
-        time_total=self.t[t_length-1] - self.t[0]
-
-        k=np.arange(t_length)
-        sample_rate=96000
-        dt=time_total/t_length
-        self.fs=1./dt
-
-        print(dt,t_length,time_total,self.fs)
 
         #fig, ax = plt.subplots()
         #plt.subplots_adjust(bottom=0.2)
@@ -64,7 +50,7 @@ class read_sorted:
         #          '  highcut=  '+str(highcut)+'  amplification=  '+ \
         #          str(amplitude_multiplier))
         plt.grid()
-        textvar=plt.annotate(" ", xy=(0.01, 0.95), \
+        self.textvar=plt.annotate(" ", xy=(0.01, 0.95), \
                                 xycoords='axes fraction')
         my_data_scaled=[]
         shift=0.
@@ -86,6 +72,21 @@ class read_sorted:
 
         csvFile.seek(0)
         self.my_data = np.loadtxt(csvFile, delimiter=',',skiprows=3)
+
+        rows,self.cols=self.my_data.shape
+        print(rows,self.cols)
+        t_original=self.my_data[self.start_index:,0]
+        t_length=len(t_original)
+
+        self.t=t_original/1000
+        time_total=self.t[t_length-1] - self.t[0]
+
+        k=np.arange(t_length)
+        sample_rate=96000
+        dt=time_total/t_length
+        self.fs=1./dt
+
+        print(dt,t_length,time_total,self.fs)
 
     def plotit(self, my_data,lowcut,highcut):
         #global lines1, fill1
@@ -132,7 +133,7 @@ class read_sorted:
         if isinstance(event.x,Real) and isinstance(event.y,Real) \
             and isinstance(event.xdata,Real) and isinstance(event.ydata,Real):
             print(int(np.rint(event.ydata)),event.xdata)
-            # self.textvar.remove()  
+            self.textvar.remove()  
             myTime='Time is %7.4f ms' %(event.xdata)
             self.textvar=plt.annotate(myTime, xy=(0.01, 0.95), \
                                     xycoords='axes fraction')

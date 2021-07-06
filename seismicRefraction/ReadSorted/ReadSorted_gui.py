@@ -14,10 +14,13 @@ import ReadSorted
 class read_sorted_gui:
     def __init__(self, window):
         self.window = window
-        # self.read_sorted = ReadSorted.read_sorted()
+        self.read_sorted = ReadSorted.read_sorted()
+        self.read_sorted.open_file()
+        self.read_sorted.run()
 
 
 if __name__=="__main__":
     window = Tk()
     rsg = read_sorted_gui(window)
+
     window.mainloop()
