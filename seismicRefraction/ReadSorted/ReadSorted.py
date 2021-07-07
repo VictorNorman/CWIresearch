@@ -19,7 +19,7 @@ from numbers import Real
 
 class read_sorted:
     def __init__(self):
-        Tk().withdraw() # we don't want a full GUI, so keep the root window from appearing
+        # Tk().withdraw() # we don't want a full GUI, so keep the root window from appearing
         #    window=tk.Tk()
         self.amplitude_multiplier=2.    #useful if first arrival is needed for refraction
 
@@ -169,10 +169,10 @@ class read_sorted:
         self.plotit(self.my_data,self.initial_lowcut,self.initial_highcut)
         
         axtextbox = plt.axes([0.35, 0.05, 0.35, 0.055])
-        text_box = TextBox(axtextbox, 'LowCut, HighCut, Amplitude', \
-                        initial=str(self.initial_lowcut)+', '+str(self.initial_highcut)+', '+\
-                        str(self.amplitude_multiplier))
-        text_box.on_submit(self.submit)
+        # text_box = TextBox(axtextbox, 'LowCut, HighCut, Amplitude', \
+        #                 initial=str(self.initial_lowcut)+', '+str(self.initial_highcut)+', '+\
+        #                 str(self.amplitude_multiplier))
+        # text_box.on_submit(self.submit)
         plt.axes(self.ax1)
         self.cid=self.fig.canvas.mpl_connect('button_press_event', self.onclick)
         
