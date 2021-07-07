@@ -174,8 +174,13 @@ class read_sorted:
                         str(self.amplitude_multiplier))
         text_box.on_submit(self.submit)
         plt.axes(self.ax1)
-        cid=self.fig.canvas.mpl_connect('button_press_event', self.onclick)
+        self.cid=self.fig.canvas.mpl_connect('button_press_event', self.onclick)
+        
+    def display(self):
         plt.show()
+    
+    def get_graph(self):
+        return self.fig
 
 if __name__ == "__main__":
     RS = read_sorted()
