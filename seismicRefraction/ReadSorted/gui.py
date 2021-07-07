@@ -28,8 +28,17 @@ class test_gui:
         canvas.get_tk_widget().grid(row=2, column=1)
         self.display()
     def display(self):
-        perameters = Entry(self.window, text="Hi", width=20)
-        perameters.grid(row=3, column=1)
+        description = Label(self.window, text="LowCut, HighCut, Amplitude")
+        
+        lowcut = self.RS.get_initial_lowcut()
+        highcut = self.RS.get_initial_highcut()
+        amplitude = self.RS.get_amplitude()
+        text_box = self.RS.get_input_str()
+        perameters = Entry(self.window, text=text_box, width=20)
+        description.grid(row=3, column=1)
+        perameters.grid(row=3, column=2)
+        # submit = Button(self.window, text="submig", command=self.RS.submit(perameters.get()))
+        # submit.grid(row=4, column=2)
 
 
 
@@ -37,6 +46,6 @@ if __name__=="__main__":
     root = Tk()
     gui = test_gui(root)
     def on_closing():
-        root.destroy()
+        exit(0)
     root.protocol("WM_DELETE_WINDOW", on_closing)
     root.mainloop()

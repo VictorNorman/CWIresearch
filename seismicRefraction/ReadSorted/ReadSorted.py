@@ -173,14 +173,24 @@ class read_sorted:
         #                 initial=str(self.initial_lowcut)+', '+str(self.initial_highcut)+', '+\
         #                 str(self.amplitude_multiplier))
         # text_box.on_submit(self.submit)
+        self.input_str = str(self.initial_lowcut)+', '+str(self.initial_highcut)+', '+\
+                        str(self.amplitude_multiplier)
         plt.axes(self.ax1)
         self.cid=self.fig.canvas.mpl_connect('button_press_event', self.onclick)
         
     def display(self):
         plt.show()
     
+    def get_initial_lowcut(self):
+        return self.initial_lowcut
+    def get_initial_highcut(self):
+        return self.initial_highcut
+    def get_amplitude(self):
+        return self.amplitude_multiplier
     def get_graph(self):
         return self.fig
+    def get_input_str(self):
+        return self.input_str
 
 if __name__ == "__main__":
     RS = read_sorted()
