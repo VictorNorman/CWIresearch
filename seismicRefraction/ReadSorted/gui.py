@@ -33,12 +33,13 @@ class test_gui:
         lowcut = self.RS.get_initial_lowcut()
         highcut = self.RS.get_initial_highcut()
         amplitude = self.RS.get_amplitude()
-        text_box = self.RS.get_input_str()
+        text_box = StringVar(self.window, self.RS.get_input_str())
         perameters = Entry(self.window, text=text_box, width=20)
         description.grid(row=3, column=1)
         perameters.grid(row=3, column=2)
-        # submit = Button(self.window, text="submig", command=self.RS.submit(perameters.get()))
-        # submit.grid(row=4, column=2)
+        print(text_box.get())
+        submit = Button(self.window, text="submit", command=self.RS.submit(text_box.get()))
+        submit.grid(row=4, column=2)
 
 
 
