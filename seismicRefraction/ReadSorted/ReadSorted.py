@@ -146,11 +146,12 @@ class read_sorted:
         self.lowcut=float(txt[0])
         self.highcut=float(txt[1])
         self.amplitude_multiplier=float(txt[2])
+        print(txt)
 
-        for index in range(0,self.cols-1,1):
-            line = [line for line in self.ax1.lines if line.get_label()==str(index)][0]
-            self.ax1.lines.remove(line)
-            #print('index',index)
+        # for index in range(0,self.cols-1,1):
+        #     line = [line for line in self.ax1.lines if line.get_label()==str(index)][0]
+        #     self.ax1.lines.remove(line)
+        #     #print('index',index)
 
         self.ax1.collections.clear()
         self.plotit(self.my_data,self.lowcut,self.highcut)

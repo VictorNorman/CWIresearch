@@ -18,30 +18,37 @@ class test_gui:
     def addButtons(self):
         file_button = Button(self.window, text="Pick File", command=self.openFile)
         file_button.grid(row=1, column=1, rowspan=2)
+
     def openFile(self):
         self.RS.open_file()
         self.RS.run()
+        self.text_box = StringVar(self.window, self.RS.get_input_str())
         self.graph = self.RS.get_graph()
-
-        canvas = FigureCanvasTkAgg(self.graph, master=root)  # A tk.DrawingArea.
-        canvas.draw()
-        canvas.get_tk_widget().grid(row=2, column=1)
+        self.show_graph()
+    
+    def show_graph(self):
+        self.canvas = FigureCanvasTkAgg(self.graph, master=root)  # A tk.DrawingArea.
+        self.canvas.draw()
+        self.canvas.get_tk_widget().grid(row=2, column=1)
         self.display()
+
     def display(self):
         description = Label(self.window, text="LowCut, HighCut, Amplitude")
         
         lowcut = self.RS.get_initial_lowcut()
         highcut = self.RS.get_initial_highcut()
         amplitude = self.RS.get_amplitude()
-        text_box = StringVar(self.window, self.RS.get_input_str())
-        perameters = Entry(self.window, text=text_box, width=20)
+        self.perameters = Entry(self.window, text=self.text_box, width=20)
         description.grid(row=3, column=1)
-        perameters.grid(row=3, column=2)
-        print(text_box.get())
-        submit = Button(self.window, text="submit", command=self.RS.submit(text_box.get()))
+        self.perameters.grid(row=3, column=2)
+        print(self.text_box.get())
+        submit = Button(self.window, text="submit", command=self.update)
         submit.grid(row=4, column=2)
 
-
+    def update(self):
+        self.text_box = StringVar(self.window, self.perameters.get())
+        self.RS.submit(self.text_box.get())
+        self.show_graph()
 
 if __name__=="__main__":
     root = Tk()
