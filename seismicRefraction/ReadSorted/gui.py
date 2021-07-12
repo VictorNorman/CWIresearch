@@ -8,11 +8,13 @@ from matplotlib.backend_bases import key_press_handler
 from matplotlib.figure import Figure
 from ReadSorted import read_sorted
 from tkinter import messagebox
+from SortFiles import ReadnSort
 
 class test_gui:
     def __init__(self, window):
         self.window = window
         self.RS = read_sorted()
+        self.RnS = ReadnSort()
         self.buttonframe = Frame(self.window)
         self.graphframe = Frame(self.window)
         self.buttonframe.pack(side=TOP, anchor=NW)
@@ -22,6 +24,8 @@ class test_gui:
     def addButtons(self):
         file_button = Button(self.buttonframe, text="Pick File", command=self.openFile)
         file_button.grid(row=1, column=1, rowspan=2)
+        sort_button = Button(self.buttonframe, text="Sort Files", command=self.RnS.run)
+        sort_button.grid(row=1, column=2, rowspan=2)
 
     def openFile(self):
         self.RS.open_file()
