@@ -16,6 +16,7 @@ from matplotlib.widgets import TextBox
 from tkinter import Tk     # from tkinter import Tk for Python 3.x
 from tkinter.filedialog import askopenfilename
 from numbers import Real
+import zipfile
 
 class read_sorted:
     def __init__(self):

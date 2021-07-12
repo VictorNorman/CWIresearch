@@ -86,8 +86,8 @@ class VESgui:
               text="Maximum\nValue", width=15).grid(row=2, column=7)
 
         # note while testing
-        Label(self.layerinputframe, font=("TkDefaultFont", 7),
-              text="  --> For predictable results, enter 1 10 5 75 20 2 500 200 100 3000").grid(row=8, column=1, columnspan=3, pady=5)
+        # Label(self.layerinputframe, font=("TkDefaultFont", 7),
+        #       text="  --> For predictable results, enter 1 10 5 75 20 2 500 200 100 3000").grid(row=8, column=1, columnspan=3, pady=5)
 
     def display_buttons(self):
 
@@ -123,6 +123,10 @@ class VESgui:
             self.thick_min_entries.append(Entry(
                                           self.layerinputframe, textvariable=self.thick_min_layer[i], width=10))
 
+            self.thick_max_layer.append(IntVar(self.window))
+            self.thick_max_entries.append(Entry(
+                                          self.layerinputframe, textvariable=self.thick_max_layer[i], width=10))
+
         # Add "Infinite" label to bottom of left column.
         # We store it in the thick_min_entries list so that when the number of
         # layers changes, we can remap it.  BUT IT IS NOT AN ENTRY!
@@ -131,23 +135,16 @@ class VESgui:
         infinite_thickness_label.grid(row=self.num_layers+2, column=1, columnspan=2)
         self.thick_min_entries.append(infinite_thickness_label)
 
-        # thick_max
-        for i in range(self.MAX_LAYERS - 1):
-            self.thick_max_layer.append(IntVar(self.window))
-            self.thick_max_entries.append(Entry(
-                                          self.layerinputframe, textvariable=self.thick_max_layer[i], width=10))
-
         # res_min
         for i in range(self.MAX_LAYERS):
             self.res_min_layer.append(IntVar(self.window))
             self.res_min_entries.append(Entry(
                 self.layerinputframe, textvariable=self.res_min_layer[i], width=10))
 
-        # res_max
-        for i in range(self.MAX_LAYERS):
             self.res_max_layer.append(IntVar(self.window))
             self.res_max_entries.append(Entry(
                 self.layerinputframe, textvariable=self.res_max_layer[i], width=10))
+
 
         # self.displayChosenLayers(0, self.num_layers)
 
@@ -389,5 +386,7 @@ if __name__ == '__main__':
     if len(sys.argv) >= 2:
         VS.parse_input()
     VS.display()
-
+    def on_closing():
+        exit(0)
+    window.protocol("WM_DELETE_WINDOW", on_closing)
     window.mainloop()
