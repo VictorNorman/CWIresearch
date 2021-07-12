@@ -13,40 +13,46 @@ class test_gui:
     def __init__(self, window):
         self.window = window
         self.RS = read_sorted()
+        self.buttonframe = Frame(self.window)
+        self.graphframe = Frame(self.window)
+        self.buttonframe.pack(side=TOP, anchor=NW)
+        
         self.addButtons()
     
     def addButtons(self):
-        file_button = Button(self.window, text="Pick File", command=self.openFile)
+        file_button = Button(self.buttonframe, text="Pick File", command=self.openFile)
         file_button.grid(row=1, column=1, rowspan=2)
 
     def openFile(self):
         self.RS.open_file()
         self.RS.run()
         self.text_box = StringVar(self.window, self.RS.get_input_str())
-        self.graph = self.RS.get_graph()
         self.show_graph()
     
     def show_graph(self):
-        self.canvas = FigureCanvasTkAgg(self.graph, master=root)  # A tk.DrawingArea.
+        self.graph = self.RS.get_graph()
+        self.graphframe.pack(side=LEFT, anchor=W)
+        self.canvas = FigureCanvasTkAgg(self.graph, master=self.graphframe)  # A tk.DrawingArea.
         self.canvas.draw()
         self.canvas.get_tk_widget().grid(row=2, column=1)
         self.display()
 
     def display(self):
-        description = Label(self.window, text="LowCut, HighCut, Amplitude")
+        description = Label(self.graphframe, text="LowCut, HighCut, Amplitude")
         
         lowcut = self.RS.get_initial_lowcut()
         highcut = self.RS.get_initial_highcut()
         amplitude = self.RS.get_amplitude()
-        self.perameters = Entry(self.window, text=self.text_box, width=20)
+        self.perameters = Entry(self.graphframe, text=self.text_box, width=20)
         description.grid(row=3, column=1)
         self.perameters.grid(row=3, column=2)
         print(self.text_box.get())
-        submit = Button(self.window, text="submit", command=self.update)
+        submit = Button(self.graphframe, text="submit", command=self.update)
         submit.grid(row=4, column=2)
 
     def update(self):
-        self.text_box = StringVar(self.window, self.perameters.get())
+        self.graphframe.pack_forget()
+        self.text_box = StringVar(self.graphframe, self.perameters.get())
         self.RS.submit(self.text_box.get())
         self.show_graph()
 
