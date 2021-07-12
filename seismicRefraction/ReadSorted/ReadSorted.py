@@ -149,17 +149,17 @@ class read_sorted:
         print(txt)
         plt.clf()
         
-        # for index in range(0,self.cols-1,1):
-        #     line_delete = ""
-        #     print(self.ax1.lines)
-        #     # line = [line for line in self.ax1.lines if line.get_label()==str(index)][0]  # What is this?
-        #     for line in self.ax1.lines:
-        #         if line.get_label()==str(index):
-        #             line_delete = line
-        #     print(line_delete)
-        #     if line_delete != "":
-        #         self.ax1.lines.remove(line_delete)
-        #     print('index',index)
+        for index in range(0,self.cols-1,1):
+            line_delete = ""
+            print(self.ax1.lines)
+            # line = [line for line in self.ax1.lines if line.get_label()==str(index)][0]  # What is this?
+            for line in self.ax1.lines:
+                if line.get_label()==str(index):
+                    line_delete = line
+            # print(line_delete)
+            if line_delete != "":
+                self.ax1.lines.remove(line_delete)
+            # print('index',index)
 
         self.ax1.collections.clear()
         self.plotit(self.my_data,self.lowcut,self.highcut)
