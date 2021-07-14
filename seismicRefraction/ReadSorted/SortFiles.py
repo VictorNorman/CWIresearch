@@ -14,6 +14,7 @@ from tkinter import Tk     # from tkinter import Tk for Python 3.x
 from tkinter.filedialog import askopenfilenames
 from tkinter.filedialog import asksaveasfilename
 import zipfile
+import re
 
 class ReadnSort:
     def __init__(self, debug=False):
@@ -79,13 +80,25 @@ class ReadnSort:
 
     def ReadFile(self):
 
-        
     #    window=tk.Tk()
 
         seismicfilenames = askopenfilenames(filetypes=[("csv files", "*.csv;*.CSV"), ("zip files", "*.zip;*.ZIP")]) # show an "Open" dialog box and return the path to the selected file
+        
     #    window.lift()
         print(seismicfilenames)
-        for file in seismicfilenames:
+        print(re.search("\.zip", seismicfilenames[0]))
+        if None == re.search("\.zip", seismicfilenames[0]):
+            self.split_files(seismicfilenames)
+        else:
+            zf = zipfile.ZipFile(seismicfilenames[0])
+            print(zf.namelist())
+            nameList = zf.namelist()
+            # for names in nameList:
+            #     print(names)
+            zf.extractall()
+            self.split_files(nameList)
+    def split_files(self, list):
+        for file in list:
             if self.DEBUG:
                 print(file) 
                 print("i am reading a file now")

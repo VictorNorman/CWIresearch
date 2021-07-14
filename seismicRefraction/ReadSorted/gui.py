@@ -43,10 +43,6 @@ class test_gui:
 
     def display(self):
         description = Label(self.graphframe, text="LowCut, HighCut, Amplitude")
-        
-        lowcut = self.RS.get_initial_lowcut()
-        highcut = self.RS.get_initial_highcut()
-        amplitude = self.RS.get_amplitude()
         self.perameters = Entry(self.graphframe, text=self.text_box, width=20)
         description.grid(row=3, column=1)
         self.perameters.grid(row=3, column=2)
