@@ -13,7 +13,7 @@ import pandas as pd
 from tkinter import Tk     # from tkinter import Tk for Python 3.x
 from tkinter.filedialog import askopenfilenames
 from tkinter.filedialog import asksaveasfilename
-
+import zipfile
 class ReadnSort:
     def __init__(self, debug=False):
 
@@ -77,13 +77,17 @@ class ReadnSort:
         ilabel=0
 
     def ReadFile(self):
+        seismicfilenames = askopenfilenames(filetypes=[("csv files", "*.csv;*.CSV"), ("zip files", "*.zip;*.ZIP")]) # show an "Open" dialog box and return the path to the selected file   
+        if False == zipfile.is_zipfile(seismicfilenames[0]):
+            self.split_files(seismicfilenames)
+        else:
+            zf = zipfile.ZipFile(seismicfilenames[0])
+            nameList = zf.namelist()
+            zf.extractall()
+            self.split_files(nameList)
 
-        
-    #    window=tk.Tk()
-
-        seismicfilenames = askopenfilenames(filetypes=[("csv files", "*.csv;*.CSV")]) # show an "Open" dialog box and return the path to the selected file
-    #    window.lift()
-        for file in seismicfilenames:
+    def split_files(self, list):
+        for file in list:
             if self.DEBUG:
                 print(file) 
                 print("i am reading a file now")
