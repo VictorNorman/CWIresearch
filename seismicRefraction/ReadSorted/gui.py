@@ -22,7 +22,7 @@ class test_gui:
         self.addButtons()
     
     def addButtons(self):
-        file_button = Button(self.buttonframe, text="Pick File", command=self.openFile)
+        file_button = Button(self.buttonframe, text="Pick Sorted", command=self.openFile)
         file_button.grid(row=1, column=1, rowspan=2)
         sort_button = Button(self.buttonframe, text="Sort Files", command=self.RnS.run)
         sort_button.grid(row=1, column=2, rowspan=2)
@@ -45,10 +45,10 @@ class test_gui:
         description = Label(self.graphframe, text="LowCut, HighCut, Amplitude")
         self.perameters = Entry(self.graphframe, text=self.text_box, width=20)
         description.grid(row=3, column=1)
-        self.perameters.grid(row=3, column=2)
+        self.perameters.grid(row=4, column=1)
         print(self.text_box.get())
         submit = Button(self.graphframe, text="submit", command=self.update)
-        submit.grid(row=4, column=2)
+        submit.grid(row=5, column=1)
 
     def update(self):
         self.graphframe.pack_forget()
