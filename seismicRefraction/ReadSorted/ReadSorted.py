@@ -27,7 +27,10 @@ class read_sorted:
         self.lowcut=0.1
         self.initial_lowcut=0.1
         self.initial_highcut=600
+
         self.click_data_list=[]
+        self.output_bool = False
+
         time1stBreak=[]
         strikePlate=[]
         self.start_index=0
@@ -89,10 +92,12 @@ class read_sorted:
         dt=time_total/t_length
         self.fs=1./dt
 
+        print(dt,t_length,time_total,self.fs)
+
+    def output_file(self):
+        self.output_bool = True
         self.click_file_name = asksaveasfilename()
         self.click_file = open(self.click_file_name + '.csv', "w")
-
-        print(dt,t_length,time_total,self.fs)
 
     def plotit(self, my_data,lowcut,highcut):
         #global lines1, fill1

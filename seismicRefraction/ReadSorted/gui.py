@@ -34,6 +34,8 @@ class test_gui:
         self.show_graph()
     
     def show_graph(self):
+        output_button = Button(self.buttonframe, text="Output Clicks", command=self.RS.output_file)
+        output_button.grid(row=1, column=3, rowspan=2)
         self.graph = self.RS.get_graph()
         self.graphframe.pack(side=LEFT, anchor=W)
         self.canvas = FigureCanvasTkAgg(self.graph, master=self.graphframe)  # A tk.DrawingArea.
@@ -57,7 +59,8 @@ class test_gui:
         self.show_graph()
     
     def on_closing(self):
-        self.RS.close_file()
+        if self.RS.output_bool == True:
+            self.RS.close_file()
         exit(0)
 
 if __name__=="__main__":
