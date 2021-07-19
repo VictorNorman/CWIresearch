@@ -16,7 +16,7 @@ from matplotlib.widgets import TextBox
 from tkinter import Tk     # from tkinter import Tk for Python 3.x
 from tkinter.filedialog import askopenfilename, asksaveasfilename
 from numbers import Real
-import zipfile
+import csv
 
 class read_sorted:
     def __init__(self):
@@ -27,7 +27,7 @@ class read_sorted:
         self.lowcut=0.1
         self.initial_lowcut=0.1
         self.initial_highcut=600
-
+        self.click_data_list=[]
         time1stBreak=[]
         strikePlate=[]
         self.start_index=0
@@ -208,6 +208,10 @@ class read_sorted:
         return self.input_str
     
     def close_file(self):
+        print(self.click_data_list)
+        filewriter = csv.writer(self.click_file, delimiter=' ')
+        for clicks in self.click_data_list:
+            filewriter.writerow(clicks)
         self.click_file.close()
 
 if __name__ == "__main__":
