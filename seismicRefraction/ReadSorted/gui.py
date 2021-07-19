@@ -55,11 +55,14 @@ class test_gui:
         self.text_box = StringVar(self.graphframe, self.perameters.get())
         self.RS.submit(self.text_box.get())
         self.show_graph()
+    
+    def on_closing(self):
+        self.RS.close_file()
+        exit(0)
 
 if __name__=="__main__":
     root = Tk()
     gui = test_gui(root)
-    def on_closing():
-        exit(0)
-    root.protocol("WM_DELETE_WINDOW", on_closing)
+    
+    root.protocol("WM_DELETE_WINDOW", gui.on_closing)
     root.mainloop()

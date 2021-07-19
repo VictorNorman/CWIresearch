@@ -14,7 +14,7 @@ from matplotlib import rcParams
 from shutil import copyfile
 from matplotlib.widgets import TextBox
 from tkinter import Tk     # from tkinter import Tk for Python 3.x
-from tkinter.filedialog import askopenfilename
+from tkinter.filedialog import askopenfilename, asksaveasfilename
 from numbers import Real
 import zipfile
 
@@ -89,6 +89,9 @@ class read_sorted:
         dt=time_total/t_length
         self.fs=1./dt
 
+        self.click_file_name = asksaveasfilename()
+        self.click_file = open(self.click_file_name + '.csv', "w")
+
         print(dt,t_length,time_total,self.fs)
 
     def plotit(self, my_data,lowcut,highcut):
@@ -135,7 +138,8 @@ class read_sorted:
         #          event.y, event.xdata, event.ydata))
         if isinstance(event.x,Real) and isinstance(event.y,Real) \
             and isinstance(event.xdata,Real) and isinstance(event.ydata,Real):
-            print(int(np.rint(event.ydata)),event.xdata)
+            click_data = (int(np.rint(event.ydata)),event.xdata)
+            self.click_data_list.append(click_data)
             self.textvar.remove()  
             myTime='Time is %7.4f ms' %(event.xdata)
             self.textvar=plt.annotate(myTime, xy=(0.01, 0.95), \
@@ -202,6 +206,9 @@ class read_sorted:
         return self.fig
     def get_input_str(self):
         return self.input_str
+    
+    def close_file(self):
+        self.click_file.close()
 
 if __name__ == "__main__":
     RS = read_sorted()
