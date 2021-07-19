@@ -31,6 +31,7 @@ class read_sorted:
         time1stBreak=[]
         strikePlate=[]
         self.start_index=0
+        self.set_plot()
         #print(t_original[0])
 
         #convert time to start at 0 for pretrig instead of -15 and change from ms to s
@@ -39,6 +40,7 @@ class read_sorted:
         #fig, ax = plt.subplots()
         #plt.subplots_adjust(bottom=0.2)
 
+    def set_plot(self):
         self.fig=plt.figure(figsize=(9,7))
         plt.subplot(111)
         plt.gcf().tight_layout()
@@ -147,12 +149,10 @@ class read_sorted:
         self.lowcut=float(txt[0])
         self.highcut=float(txt[1])
         self.amplitude_multiplier=float(txt[2])
-        print(txt)
         plt.clf()
         
         for index in range(0,self.cols-1,1):
             line_delete = ""
-            print(self.ax1.lines)
             # line = [line for line in self.ax1.lines if line.get_label()==str(index)][0]  # What is this?
             for line in self.ax1.lines:
                 if line.get_label()==str(index):
@@ -163,6 +163,7 @@ class read_sorted:
             # print('index',index)
 
         self.ax1.collections.clear()
+        self.__init__()
         self.plotit(self.my_data,self.lowcut,self.highcut)
         return
 
