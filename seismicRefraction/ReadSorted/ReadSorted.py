@@ -174,6 +174,9 @@ class read_sorted:
         self.ax1.collections.clear()
         self.__init__()
         self.plotit(self.my_data,self.lowcut,self.highcut)
+        self.input_str = str(self.lowcut)+', '+str(self.highcut)+', '+\
+                        str(self.amplitude_multiplier)
+        self.run()
         return
 
     def scale_filter(self, my_data, trace, lowcut, highcut):
@@ -185,16 +188,18 @@ class read_sorted:
         pbuttertrace=self.butter_bandpass_filter(p, lowcut, highcut, self.fs, order=2)
         return pbuttertrace
     
-    def run(self):
+    def initial_run(self):
         self.plotit(self.my_data,self.initial_lowcut,self.initial_highcut)
-        
+        self.input_str = str(self.initial_lowcut)+', '+str(self.initial_highcut)+', '+\
+                        str(self.amplitude_multiplier)
+        self.run()
+
+    def run(self):
         axtextbox = plt.axes([0.35, 0.05, 0.35, 0.055])
         # text_box = TextBox(axtextbox, 'LowCut, HighCut, Amplitude', \
         #                 initial=str(self.initial_lowcut)+', '+str(self.initial_highcut)+', '+\
         #                 str(self.amplitude_multiplier))
         # text_box.on_submit(self.submit)
-        self.input_str = str(self.initial_lowcut)+', '+str(self.initial_highcut)+', '+\
-                        str(self.amplitude_multiplier)
         plt.axes(self.ax1)
         self.cid=self.fig.canvas.mpl_connect('button_press_event', self.onclick)
         

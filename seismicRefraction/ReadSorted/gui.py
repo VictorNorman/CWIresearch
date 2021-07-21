@@ -29,7 +29,7 @@ class test_gui:
 
     def openFile(self):
         self.RS.open_file()
-        self.RS.run()
+        self.RS.initial_run()
         self.text_box = StringVar(self.window, self.RS.get_input_str())
         self.show_graph()
     
