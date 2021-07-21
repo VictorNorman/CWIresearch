@@ -63,9 +63,9 @@ class read_sorted:
         pbutter=[]
 
     def open_file(self):
-        seismicfilename = askopenfilename(filetypes=[("csv files", "*.csv;*.CSV")]) # show an "Open" dialog box and return the path to the selected file
+        self.seismicfilename = askopenfilename(filetypes=[("csv files", "*.csv;*.CSV")]) # show an "Open" dialog box and return the path to the selected file
         self.geophoneLocations=[]
-        csvFile = open(seismicfilename,"r") 
+        csvFile = open(self.seismicfilename,"r") 
         locations=csvFile.readline()
         locations=csvFile.readline()
         geophoneLocationsString=locations.split(',')
@@ -97,7 +97,7 @@ class read_sorted:
     def output_file(self):
         self.output_bool = True
         self.click_file_name = asksaveasfilename()
-        self.click_file = open(self.click_file_name + '.csv', "w")
+        self.click_file = open(self.click_file_name + '.csv', "w", newline='')
 
     def plotit(self, my_data,lowcut,highcut):
         #global lines1, fill1
@@ -215,6 +215,9 @@ class read_sorted:
     def close_file(self):
         print(self.click_data_list)
         filewriter = csv.writer(self.click_file, delimiter=' ')
+        header = csv.writer(self.click_file)
+        header.writerow([self.input_str])
+        header.writerow([self.seismicfilename + '\n'])
         for clicks in self.click_data_list:
             filewriter.writerow(clicks)
         self.click_file.close()
