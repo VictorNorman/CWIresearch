@@ -8,17 +8,14 @@ Created on Fri Jun 21 13:53:15 2019
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.signal import butter, lfilter
-from scipy.signal import freqz
-import matplotlib as mpl
-from matplotlib import rcParams
-from shutil import copyfile
-from matplotlib.widgets import TextBox
-from tkinter import Tk     # from tkinter import Tk for Python 3.x
 from tkinter.filedialog import askopenfilename, asksaveasfilename
 from numbers import Real
 import csv
 
 class read_sorted:
+    '''
+    Takes in a sorted csv file and outputs a matplot graph
+    '''
     def __init__(self):
         # Tk().withdraw() # we don't want a full GUI, so keep the root window from appearing
         #    window=tk.Tk()
@@ -44,6 +41,7 @@ class read_sorted:
         #plt.subplots_adjust(bottom=0.2)
 
     def set_plot(self):
+        # Creates the background and axes of the graph
         self.fig=plt.figure(figsize=(9,7))
         plt.subplot(111)
         plt.gcf().tight_layout()
@@ -63,6 +61,7 @@ class read_sorted:
         pbutter=[]
 
     def open_file(self):
+        # Opens up a dialog graph and lets the user select a file to read
         self.seismicfilename = askopenfilename(filetypes=[("csv files", "*.csv;*.CSV")]) # show an "Open" dialog box and return the path to the selected file
         self.geophoneLocations=[]
         csvFile = open(self.seismicfilename,"r") 
@@ -95,11 +94,15 @@ class read_sorted:
         print(dt,t_length,time_total,self.fs)
 
     def output_file(self):
+        # Opens a dialog for user to name an output file
         self.output_bool = True
         self.click_file_name = asksaveasfilename()
         self.click_file = open(self.click_file_name + '.csv', "w", newline='')
 
     def plotit(self, my_data,lowcut,highcut):
+        
+        # Plots data from file
+
         #global lines1, fill1
         shift=1
     #    plt.subplot(111)
@@ -137,6 +140,7 @@ class read_sorted:
         return y
 
     def onclick(self, event):
+        # When User clicks on graph the point data is stored in a list to possibly be stored in an ouptut file
 
         # print( 'button=%d, x=%d, y=%d, time=%f, ydata=%f' \
         #        %(event.button, event.x,\
@@ -153,8 +157,8 @@ class read_sorted:
         # strikePlate=strikePlate.append(np.rint(event.ydata))
         # time1stBreak=time1stBreak.append(event.xdata)
     def submit(self, text):
+        # Updates the graph from new Lowcut, Highcut, and amplitude
         txt=text.split(',')
-        #print('new text is  ', text)
         self.lowcut=float(txt[0])
         self.highcut=float(txt[1])
         self.amplitude_multiplier=float(txt[2])
@@ -166,10 +170,8 @@ class read_sorted:
             for line in self.ax1.lines:
                 if line.get_label()==str(index):
                     line_delete = line
-            # print(line_delete)
             if line_delete != "":
                 self.ax1.lines.remove(line_delete)
-            # print('index',index)
 
         self.ax1.collections.clear()
         self.__init__()
@@ -205,7 +207,7 @@ class read_sorted:
         
     def display(self):
         plt.show()
-    
+# --------------Getters and Setters------------
     def get_initial_lowcut(self):
         return self.initial_lowcut
     def get_initial_highcut(self):
@@ -216,8 +218,10 @@ class read_sorted:
         return self.fig
     def get_input_str(self):
         return self.input_str
-    
+# ---------------------------------------------
+
     def close_file(self):
+        # writes to and closes output
         print(self.click_data_list)
         filewriter = csv.writer(self.click_file, delimiter=' ')
         header = csv.writer(self.click_file)

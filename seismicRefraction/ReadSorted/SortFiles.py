@@ -54,6 +54,7 @@ class ReadnSort:
         self.all3=[]
 
     def ReadFile(self):
+        # takes in either zip or csv file formats and can read multiple files at a time
         seismicfilenames = askopenfilenames(filetypes=[("csv files", "*.csv;*.CSV"), ("zip files", "*.zip;*.ZIP")]) # show an "Open" dialog box and return the path to the selected file   
         if False == zipfile.is_zipfile(seismicfilenames[0]):
             self.split_files(seismicfilenames)
@@ -64,6 +65,7 @@ class ReadnSort:
             self.split_files(nameList)
 
     def split_files(self, list):
+        # takes in one or multiple files and reads data from them
         for file in list:
             if self.DEBUG:
                 print(file) 
@@ -125,6 +127,7 @@ class ReadnSort:
         
     
     def WriteFile(self):
+        # Writes all sorted data into three csv files (one for each geophone)
         seismicfilename = asksaveasfilename() # show an "Open" dialog box and return the path to the selected file
         if self.DEBUG:
             print(seismicfilename)          
