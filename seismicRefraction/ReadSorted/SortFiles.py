@@ -62,7 +62,11 @@ class ReadnSort:
             zf = zipfile.ZipFile(seismicfilenames[0])
             nameList = zf.namelist()
             zf.extractall()
-            self.split_files(nameList)
+            try:
+                self.split_files(nameList)
+            except:
+                print("Zip must contain only csv files")
+                self.ReadFile()
 
     def split_files(self, list):
         # takes in one or multiple files and reads data from them
@@ -70,7 +74,7 @@ class ReadnSort:
             if self.DEBUG:
                 print(file) 
                 print("i am reading a file now")
-            
+
             csvFile = open(file,"r") 
             if self.DEBUG:
                 print(" i opened the file")
