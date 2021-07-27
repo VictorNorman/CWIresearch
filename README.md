@@ -1,6 +1,3 @@
----
-layout: default
----
 ## VESinverse
 ### How to run
 The code is in resistivity/VESinverse
