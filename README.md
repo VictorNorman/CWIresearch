@@ -1,29 +1,36 @@
 ## VESinverse
 ### How to run
--The code is in resistivity/VESinverse
+- The code is in resistivity/VESinverse
+- VESgui.py runs the gui 
+- VESinverse.py is all the computational code tha the gui and tests access
+- tests.py runs the automatic tests
 
--VESgui.py runs the gui 
+## SeismicRefraction
+### How to run
+- The code is in seismicRefraction/ReadSorted
+- gui.py runs the gui which runs both ReadSorted.py and SortFiles.py
+- SortFiles.py takes in 1+ csv files with Seismic data, or a .zip files that contains 1+ csv files
+- ReadSorted.py reads the output files from SortFiles (i.e. the sorted seismic data) and displays an interactive graph
 
--VESinverse.py is all the computational code tha the gui and tests access
-
--tests.py runs the automatic tests
 
 ### Pyinstaller
--Pyinstaller can be installed using the command promp and using the command
+- Pyinstaller can be installed using the command promp and using the command
 ```
         pip install pyinstaller
 ```
--To compile use the following command
+- To compile use the following command
 ```
         pyinstaller --windowed --onefile --name <name> <path-to-script>
 ```
--windowed flag makes it so that the command line does not open behind the gui
+- --windowed flag makes it so that the command line does not open behind the gui
 
--onefile flag results in a single executable file in the dist folder
+- --onefile flag results in a single executable file in the dist folder
 
--name sets the name for the executable (does not work in Windows XP)
+- --name sets the name for the executable (does not work in Windows XP)
 
--<path-to-script> is the path to the script that is to be compiled
+- path-to-script is the path to the script that is to be compiled
+
+
 
 link to explanations for geophysical methods
 https://gpg.geosci.xyz/
