@@ -13,6 +13,17 @@
 ```
         pip install pyinstaller
 ```
+-To compile use the following command
+```
+        pyinstaller --windowed --onefile --name <name> <path-to-script>
+```
+-windowed flag makes it so that the command line does not open behind the gui
+
+-onefile flag results in a single executable file in the dist folder
+
+-name sets the name for the executable (does not work in Windows XP)
+
+-<path-to-script> is the path to the script that is to be compiled
 
 link to explanations for geophysical methods
 https://gpg.geosci.xyz/
