@@ -1,9 +1,13 @@
 ## VESinverse
 ### How to run
 -The code is in resistivity/VESinverse
+
 -VESgui.py runs the gui 
+
 -VESinverse.py is all the computational code tha the gui and tests access
+
 -tests.py runs the automatic tests
+
 ### Pyinstaller
 -Pyinstaller can be installed using the command promp and using the command
 ```
