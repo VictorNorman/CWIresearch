@@ -67,12 +67,12 @@ class read_sorted:
         csvFile = open(self.seismicfilename,"r") 
         locations=csvFile.readline()
         locations=csvFile.readline()
-        geophoneLocationsString=locations.split(',')
+        self.geophoneLocationsString=locations.split(',')
 
-        glength=len(geophoneLocationsString)
+        glength=len(self.geophoneLocationsString)
         for j in range(1,glength,1):
-            print(glength,j,geophoneLocationsString[j])
-            x=float(geophoneLocationsString[j])
+            print(glength,j,self.geophoneLocationsString[j])
+            x=float(self.geophoneLocationsString[j])
             self.geophoneLocations.append(x)
 
         csvFile.seek(0)
@@ -147,7 +147,8 @@ class read_sorted:
         #          event.y, event.xdata, event.ydata))
         if isinstance(event.x,Real) and isinstance(event.y,Real) \
             and isinstance(event.xdata,Real) and isinstance(event.ydata,Real):
-            click_data = (int(np.rint(event.ydata)),event.xdata)
+            # click_data = (int(np.rint(event.ydata)),event.xdata)
+            click_data = (self.geophoneLocationsString[int(np.rint(event.ydata))], event.xdata)
             self.click_data_list.append(click_data)
             self.textvar.remove()  
             myTime='Time is %7.4f ms' %(event.xdata)
