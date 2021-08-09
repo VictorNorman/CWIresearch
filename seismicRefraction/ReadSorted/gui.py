@@ -6,6 +6,7 @@
 from tkinter import *
 from matplotlib.backends.backend_tkagg import (
     FigureCanvasTkAgg)
+import matplotlib.backends.backend_tkagg as tkagg
 from matplotlib.backend_bases import key_press_handler
 from ReadSorted import read_sorted
 from SortFiles import ReadnSort
@@ -17,6 +18,7 @@ class test_gui:
         self.RnS = ReadnSort()
         self.buttonframe = Frame(self.window)
         self.graphframe = Frame(self.window)
+        self.toolbarframe = Frame(self.window)
         self.buttonframe.pack(side=TOP, anchor=NW)
         
         self.addButtons()
@@ -41,8 +43,15 @@ class test_gui:
         output_button.grid(row=1, column=3, rowspan=2)
         self.graph = self.RS.get_graph()
         self.graphframe.pack(side=LEFT, anchor=W)
+
+
         self.canvas = FigureCanvasTkAgg(self.graph, master=self.graphframe)  # A tk.DrawingArea.
         self.canvas.draw()
+
+        self.toolbarframe.pack(side=RIGHT, anchor=W)
+        self.toolbar = tkagg.NavigationToolbar2Tk(self.canvas, self.toolbarframe)
+        self.toolbar.draw()
+
         self.canvas.get_tk_widget().grid(row=2, column=1)
         self.display()
 
