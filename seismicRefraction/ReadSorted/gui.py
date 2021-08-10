@@ -65,6 +65,8 @@ class test_gui:
     
     def on_closing(self):
         # Without this the script won't close and will run in the background of windows
+        # this must also be comented out when exporting it through Pyinstaller, else the
+        # executable will not close
         if self.RS.output_bool == True:
             self.RS.close_file()
         exit(0)
