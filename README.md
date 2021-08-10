@@ -14,7 +14,7 @@
 - ReadSorted.py reads the output files from SortFiles (i.e. the sorted seismic data) and displays an interactive graph
 
 
-### Pyinstaller
+## Pyinstaller
 - Pyinstaller can be installed using the command promp and using the command
 ```
         pip install pyinstaller
@@ -29,7 +29,8 @@
 - path-to-script is the path to the script that is to be compiled
 
 ***
-#### Links
+***
+## Links
 link to explanations for geophysical methods
 https://gpg.geosci.xyz/
 
@@ -41,3 +42,7 @@ Myanmar Geoscientists withiout Borders project
 https://github.com/simpeg-research/gwb-dc-inversions/blob/master/README.md
 
 - executables can be download at https://ajvrieland.github.io/
+
+## TODO
+- Remove Scale in SeismicRefracton/ReadSorted/ReadSorted.py
+- Make the Navigation bar update correctly in SeismicRefraction/ReadSorted/gui.py
