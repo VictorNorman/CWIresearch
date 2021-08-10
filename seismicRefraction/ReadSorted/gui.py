@@ -36,6 +36,9 @@ class test_gui:
         self.RS.initial_run()
         self.text_box = StringVar(self.window, self.RS.get_input_str())
         self.show_graph()
+        self.toolbarframe.pack(side=BOTTOM, anchor=W)
+        self.toolbar = tkagg.NavigationToolbar2Tk(self.canvas, self.toolbarframe)
+        self.toolbar.canvas.draw_idle()
     
     def show_graph(self):
         # Displays a matplotlib graph in Tkinter using FigureCanvasTkAgg
@@ -48,10 +51,6 @@ class test_gui:
         self.canvas = FigureCanvasTkAgg(self.graph, master=self.graphframe)  # A tk.DrawingArea.
         self.canvas.draw()
 
-        self.toolbarframe.pack(side=RIGHT, anchor=W)
-        self.toolbar = tkagg.NavigationToolbar2Tk(self.canvas, self.toolbarframe)
-        self.toolbar.draw()
-
         self.canvas.get_tk_widget().grid(row=2, column=1)
         self.display()
 
@@ -59,15 +58,16 @@ class test_gui:
         # Displays the rest of the Gui including input box and submit button to update LowCut, HighCut, Amplitude
         description = Label(self.graphframe, text="LowCut, HighCut, Amplitude")
         self.perameters = Entry(self.graphframe, text=self.text_box, width=20)
-        description.grid(row=3, column=1)
-        self.perameters.grid(row=4, column=1)
+        description.grid(row=4, column=1)
+        self.perameters.grid(row=5, column=1)
         print(self.text_box.get())
         submit = Button(self.graphframe, text="submit", command=self.update)
-        submit.grid(row=5, column=1)
+        submit.grid(row=6, column=1)
 
     def update(self):
         # Updates graph with new inputs
         self.graphframe.pack_forget()
+        # self.toolbar.update()
         self.text_box = StringVar(self.graphframe, self.perameters.get())
         self.RS.submit(self.text_box.get())
         self.show_graph()

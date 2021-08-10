@@ -47,7 +47,7 @@ class read_sorted:
         plt.gcf().tight_layout()
         plt.subplots_adjust(bottom=0.2)
         self.ax1=self.fig.axes[0]
-        print(self.fig.axes[0])
+        print("self.fig.axes[0]", self.fig.axes[0])
         plt.ylabel('Strike Plate Number')
         plt.xlabel('time (ms)')
         #plt.title('Filtered Data - lowcut= '+str(lowcut)+ \
