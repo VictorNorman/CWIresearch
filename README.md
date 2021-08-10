@@ -1,11 +1,10 @@
-<table><tr><td>
 ## VESinverse
 ### How to run
 - The code is in resistivity/VESinverse
 - VESgui.py runs the gui 
 - VESinverse.py is all the computational code tha the gui and tests access
 - tests.py runs the automatic tests
-</td></tr><table>
+
 
 ## SeismicRefraction
 ### How to run
@@ -29,7 +28,7 @@
 - --name sets the name for the executable (does not work in Windows XP)
 - path-to-script is the path to the script that is to be compiled
 
-
+***
 #### Links
 link to explanations for geophysical methods
 https://gpg.geosci.xyz/
