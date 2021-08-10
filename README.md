@@ -1,3 +1,6 @@
+# Geophysical Modeling Software for The Clean Water Institute
+> When clean water is scarce, groundwater can be an excellent source, but drilling is expensive. Geophysical equipment, which relies on various types of signal modulation to model strata for the optimal siting of wells, can easily cost tens of thousands of dollars. This project seeks to develop low cost (<$500) instrumentation with software for data interpretation in Python. The software models geophysical data (electrical resistivity, seismic refraction, etc.) to identify choice sites for drilling a well. Software should incorporate an easy-to-use GUI, trap errors, and be easily deployable on any PC. Some code will also be used for interfacing with microcomputers recording real time data and this must be robust under trying field conditions. 
+
 ## VESinverse
 ### How to run
 - The code is in resistivity/VESinverse
