@@ -30,6 +30,9 @@
 - --onefile flag results in a single executable file in the dist folder
 - --name sets the name for the executable (does not work in Windows XP)
 - path-to-script is the path to the script that is to be compiled
+```
+If pyinstaller runs on a system with Anaconda, the resulting executable will likely be 300+ mb
+```
 
 ***
 ***
@@ -53,3 +56,5 @@ https://github.com/simpeg-research/gwb-dc-inversions/blob/master/README.md
 ### Known bugs
 - Navigation bar in the Seismic Refraction GUI duplicates when updating the graph
 - Output clicks button only outputs when GUI is closed
+- executable for SeismicReadnSort is only for windows 10
+- 
