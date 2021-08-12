@@ -36,9 +36,8 @@ class test_gui:
         self.RS.initial_run()
         self.text_box = StringVar(self.window, self.RS.get_input_str())
         self.show_graph()
-        self.toolbarframe.pack(side=BOTTOM, anchor=W)
-        self.toolbar = tkagg.NavigationToolbar2Tk(self.canvas, self.toolbarframe)
-        self.toolbar.canvas.draw_idle()
+        
+        
     
     def show_graph(self):
         # Displays a matplotlib graph in Tkinter using FigureCanvasTkAgg
@@ -50,6 +49,9 @@ class test_gui:
 
         self.canvas = FigureCanvasTkAgg(self.graph, master=self.graphframe)  # A tk.DrawingArea.
         self.canvas.draw()
+        self.toolbarframe.pack(side=BOTTOM, anchor=W)
+        self.toolbar = tkagg.NavigationToolbar2Tk(self.canvas, self.toolbarframe)
+        self.toolbar.canvas.draw_idle()
 
         self.canvas.get_tk_widget().grid(row=2, column=1)
         self.display()
@@ -67,6 +69,7 @@ class test_gui:
     def update(self):
         # Updates graph with new inputs
         self.graphframe.pack_forget()
+        self.toolbarframe.pack_forget()
         # self.toolbar.update()
         self.text_box = StringVar(self.graphframe, self.perameters.get())
         self.RS.submit(self.text_box.get())
