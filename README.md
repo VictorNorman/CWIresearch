@@ -49,3 +49,7 @@ https://github.com/simpeg-research/gwb-dc-inversions/blob/master/README.md
 ## TODO
 - Remove Scale in SeismicRefracton/ReadSorted/ReadSorted.py
 - Make the Navigation bar update correctly in SeismicRefraction/ReadSorted/gui.py
+
+### Known bugs
+- Navigation bar in the Seismic Refraction GUI duplicates when updating the graph
+- Output clicks button only outputs when GUI is closed
